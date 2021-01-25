@@ -8,7 +8,8 @@ class Bnnvara < Formula
   depends_on "wget"
 
   def install
-    system 'wget', 'https://github.com/pmq20/ruby-packer/releases/download/darwin-x64/rubyc'
+    system 'wget https://github.com/pmq20/ruby-packer/releases/download/darwin-x64/rubyc'
+    system 'chmod +x rubyc'
     system './rubyc -o ./bnnvara bin/bnnvara'
     bin.install "bnnvara"
 
