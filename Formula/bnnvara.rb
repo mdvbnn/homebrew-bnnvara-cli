@@ -6,6 +6,7 @@ class Bnnvara < Formula
   url "https://github.com/mdvbnn/homebrew-bnnvara-cli/archive/master.zip", :using => :curl
 
   depends_on "wget"
+  depends_on 'squashfs'
 
   def install
     system 'wget https://github.com/pmq20/ruby-packer/releases/download/darwin-x64/rubyc'
