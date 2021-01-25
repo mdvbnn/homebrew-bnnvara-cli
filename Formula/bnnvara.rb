@@ -9,7 +9,7 @@ class Bnnvara < Formula
 
   def install
     system 'wget', 'https://github.com/pmq20/ruby-packer/releases/download/darwin-x64/rubyc'
-    system './rubc', '-o ./bnnvara', 'bin/bnnvara'
+    system './rubyc', '-o ./bnnvara', 'bin/bnnvara'
     bin.install "bnnvara"
 
     # bin.install "bin/bnnvara"
