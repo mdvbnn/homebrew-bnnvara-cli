@@ -10,6 +10,8 @@ GEM
       unicode_utils (~> 1.4)
     strings-ansi (0.2.0)
     thor (1.1.0)
+    thor-zsh_completion (0.1.9)
+      thor (< 2)
     tty-color (0.6.0)
     tty-config (0.4.0)
     tty-cursor (0.7.1)
@@ -36,6 +38,7 @@ PLATFORMS
 DEPENDENCIES
   colorize
   thor
+  thor-zsh_completion
   tty-config
   tty-prompt
   tty-table

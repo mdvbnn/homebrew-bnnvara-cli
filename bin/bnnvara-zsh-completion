@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+require "thor"
+require "thor/zsh_completion"
+require_relative '../src/app'
+
+puts Thor::ZshCompletion::Generator.new(App, "bnnvara").generate
+
+
