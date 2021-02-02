@@ -19,22 +19,7 @@ class App < Thor
   desc 'docker', 'Docker Compose Commands'
   subcommand "docker", Docker
 
-  desc 'project', 'mark project folder active to run commands'
-
-  def project(project = nil)
-    if project.nil?
-      Dir.chdir($datastore.config.get('project.dir'))
-      list = Dir.glob('*').select { |f| File.directory? f }
-
-      prompt = TTY::Prompt.new
-      project = prompt.select("Choose Project?") do |menu|
-        list.each do |l|
-          menu.choice l
-        end
-      end
-    end
-
-    $datastore.config.set('project.selected', project)
-  end
+  desc 'project', 'Project commands'
+  subcommand "project", Project
 
 end

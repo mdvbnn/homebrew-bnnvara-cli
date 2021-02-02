@@ -7,6 +7,8 @@ class DataStore
     @config.load
 
     @options = options
+
+    @key_store = ConfigKeyStore
   end
 
   def config
@@ -15,5 +17,9 @@ class DataStore
 
   def options
     @options
+  end
+
+  def key_store
+    @key_store
   end
 end

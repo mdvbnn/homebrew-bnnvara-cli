@@ -14,7 +14,7 @@ class Config < Thor
     result = nil
     force = $datastore.options[:force]
 
-    unless @config.get('setup.run')
+    unless @config.get($datastore.key_store::SETUP_RUN)
       result = prompt.collect do
         key(:dir).ask("Project Directory ? ~/")
       end
@@ -28,8 +28,8 @@ class Config < Thor
 
     unless result.nil?
       project_dir = File.join(Dir.home, result[:dir])
-      @config.set('project.dir', project_dir)
-      @config.set('setup.run', true)
+      @config.set($datastore.key_store::PROJECT_DIR, project_dir)
+      @config.set($datastore.key_store::SETUP_RUN, true)
     end
 
     @config.persist
@@ -68,12 +68,12 @@ class Config < Thor
       print 'Is Setup been called? '
       sleep 0.5
 
-      if @config.get('setup.run')
+      if @config.get($datastore.key_store::SETUP_RUN)
         puts 'YES'.green
 
         print 'Project Directory '
         sleep 0.5
-        puts "#{@config.get('project.dir')}".green
+        puts "#{@config.get($datastore.key_store::PROJECT_DIR)}".green
       else
         puts 'NO'.red
       end
@@ -83,8 +83,8 @@ class Config < Thor
       check_bin('Checking for docker compose ... ', "docker-compose")
       check_bin('Checking for composer ... ', "composer")
     else
-      if @config.get('setup.run') &&
-        !@config.get('project.dir').nil? &&
+      if @config.get($datastore.key_store::SETUP_RUN) &&
+        !@config.get($datastore.key_store::PROJECT_DIR).nil? &&
         check_bin('Checking for git ... ', "git") &&
         check_bin('Checking for docker ... ', "docker") &&
         check_bin('Checking for docker compose ... ', "docker-compose") &&

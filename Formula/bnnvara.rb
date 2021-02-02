@@ -5,8 +5,8 @@ class Bnnvara < Formula
 
   url "https://github.com/mdvbnn/homebrew-bnnvara-cli/archive/master.zip", :using => :curl
 
-  depends_on "wget"
-  depends_on 'squashfs'
+  depends_on "wget" => [:build]
+  depends_on 'squashfs' => [:build]
 
   bottle do
     root_url "https://bnnvara-bottle.m-dv.nl"

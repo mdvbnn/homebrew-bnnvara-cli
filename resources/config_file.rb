@@ -22,6 +22,10 @@ class ConfigFile
     @config.fetch(key)
   end
 
+  def del(key = nil)
+    @config.delete(key)
+  end
+
   def get_config
     @config
   end
