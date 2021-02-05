@@ -7,17 +7,49 @@ class Docker < Thor
     @options = $datastore.options
   end
 
-  desc 'up', 'Start docker-compose'
-  def up
-    unless @config.get($datastore.key_store::PROJECT_ACTIVE).nil?
-      project_dir = File.join(@config.get($datastore.key_store::PROJECT_DIR), @config.get($datastore.key_store::PROJECT_ACTIVE))
-      if Dir.exist? project_dir
-        system('cd ' + project_dir + 'docker-compose up -d')
-      end
-    end
+  desc 'stop', 'Stop active docker-compose'
 
-    if Dir.pwd.include? $datastore.key_store::PROJECT_DIR
-      system('docker-compose up -d')
+  def stop
+    dir = @config.get($datastore.key_store::DOCKER_ACTIVE)
+
+    system("cd #{dir} && docker-compose stop")
+  end
+
+  desc 'up', 'Start docker-compose'
+
+  def up(project = nil)
+    prompt = TTY::Prompt.new
+
+    if project.nil?
+      if @config.get($datastore.key_store::PROJECT_ACTIVE).nil?
+        if Dir.pwd.include? @config.get($datastore.key_store::PROJECT_DIR)
+          puts 'No project marked as active'.red
+          result = prompt.yes?("Run in current directory ? " + Dir.pwd)
+          if result
+            up_command(Dir.pwd)
+          end
+        else
+          puts "This location is not within project directory #{@config.get($datastore.key_store::PROJECT_DIR)}".red
+        end
+      else
+        project_dir = File.join(@config.get($datastore.key_store::PROJECT_DIR), @config.get($datastore.key_store::PROJECT_ACTIVE))
+        up_command(project_dir)
+      end
+    else
+      project_dir2 = File.join(@config.get($datastore.key_store::PROJECT_DIR), project)
+      up_command(project_dir2)
+    end
+  end
+
+  private
+
+  def up_command(project_dir)
+    if File.exist? File.join(project_dir, 'docker-compose.yaml')
+      system("cd #{project_dir} && docker-compose up -d")
+      @config.set($datastore.key_store::DOCKER_ACTIVE, project_dir)
+    else
+      puts "Can't find docker compose file".red
+      exit 1
     end
   end
 
