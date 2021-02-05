@@ -18,7 +18,5 @@ class Bnnvara < Formula
     system 'chmod +x rubyc'
     system './rubyc -o ./bnnvara bin/bnnvara'
     bin.install "bnnvara"
-
-    # bin.install "bin/bnnvara"
   end
 end

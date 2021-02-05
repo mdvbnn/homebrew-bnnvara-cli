@@ -15,6 +15,23 @@ class Docker < Thor
     system("cd #{dir} && docker-compose stop")
   end
 
+  desc 'down', 'Stop active docker-compose and remove containers'
+
+  def down
+    prompt = TTY::Prompt.new
+
+    result = prompt.yes?("Are you sure? This wil remove the docker containers. ")
+
+    unless result
+      unless @config.get($datastore.key_store::DOCKER_ACTIVE).nil?
+        dir = @config.get($datastore.key_store::DOCKER_ACTIVE)
+        system("cd #{dir} && docker-compose down")
+        @config.del($datastore.key_store::DOCKER_ACTIVE)
+      end
+    end
+
+  end
+
   desc 'up', 'Start docker-compose'
 
   def up(project = nil)
