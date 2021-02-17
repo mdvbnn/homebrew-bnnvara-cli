@@ -31,10 +31,12 @@ jobs:
         run: brew tap mdvbnn/bnnvara-cli
         
       - name: Install BNNVARA CLi
-        run: brew install --build-bottle bnnvara
+        run: |
+          brew install --build-bottle bnnvara
+          brew bottle bnnvara
         
-      - name: Createa BNNVARA CLI Bottle
-        run: brew bottle bnnvara
+      #- name: Createa BNNVARA CLI Bottle
+      #  run: brew bottle bnnvara
         
       - name: Archive production artifacts
         uses: actions/upload-artifact@v2
