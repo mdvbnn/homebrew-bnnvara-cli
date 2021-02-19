@@ -13,31 +13,6 @@ jobs:
       - name: Set up Homebrew
         id: set-up-homebrew
         uses: Homebrew/actions/setup-homebrew@master
-        
-      - name: Tap Repo
-        run: brew tap mdvbnn/bnnvara-cli
-        
-      - name: Install BNNVARA CLi
-        run: brew install --build-bottle bnnvara
-        
-      - name: Create BNNVARA CLI Bottle
-        continue-on-error: true
-        run: brew bottle bnnvara
-  
-      - name: Upload a Build Artifact As-Is
-        uses: kittaakos/upload-artifact-as-is@v0
-        with:
-          path: |
-            *.tar.gz
-
-  mojave:
-    # 10.14 mojave
-    runs-on: macos-10.14
-    if: "contains(github.event.head_commit.message, '[build]')"
-    steps:
-      - name: Set up Homebrew
-        id: set-up-homebrew
-        uses: Homebrew/actions/setup-homebrew@master
 
       - name: Tap Repo
         run: brew tap mdvbnn/bnnvara-cli
