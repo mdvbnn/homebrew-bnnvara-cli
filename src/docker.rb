@@ -8,15 +8,16 @@ class Docker < Thor
   end
 
   desc 'stop', 'Stop active docker-compose'
-
   def stop
     dir = @config.get($datastore.key_store::DOCKER_ACTIVE)
 
-    system("cd #{dir} && docker-compose stop")
+    if dir.nil?
+      system("cd #{dir} && docker-compose stop")
+    end
+
   end
 
   desc 'down', 'Stop active docker-compose and remove containers'
-
   def down
     prompt = TTY::Prompt.new
 
@@ -33,7 +34,6 @@ class Docker < Thor
   end
 
   desc 'up', 'Start docker-compose'
-
   def up(project = nil)
     prompt = TTY::Prompt.new
 
@@ -58,8 +58,14 @@ class Docker < Thor
     end
   end
 
-  private
+  desc 'exec', 'Execute command in a docker container'
+  def exec(docker, command)
+    unless @config.get($datastore.key_store::DOCKER_ACTIVE).nil?
+      system("docker-composer exec #{docker} #{command}")
+    end
+  end
 
+  private
   def up_command(project_dir)
     if File.exist? File.join(project_dir, 'docker-compose.yaml')
       system("cd #{project_dir} && docker-compose up -d")

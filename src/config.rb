@@ -17,12 +17,14 @@ class Config < Thor
     unless @config.get($datastore.key_store::SETUP_RUN)
       result = prompt.collect do
         key(:dir).ask("Project Directory ? ~/")
+        key(:git).select("Git clone method", {ssh: 'SSH', https: 'HTTPS'})
       end
     end
 
     if force
       result = prompt.collect do
         key(:dir).ask("Project Directory ? ~/")
+        key(:git).select("Git clone method", {ssh: 'SSH', https: 'HTTPS'})
       end
     end
 
@@ -30,6 +32,7 @@ class Config < Thor
       project_dir = File.join(Dir.home, result[:dir])
       @config.set($datastore.key_store::PROJECT_DIR, project_dir)
       @config.set($datastore.key_store::SETUP_RUN, true)
+      @config.set($datastore.key_store::GIT_CLONE_METHOD, result[:git])
     end
 
     @config.persist
@@ -51,14 +54,14 @@ class Config < Thor
           table2 << [key2.to_s, value2.to_s]
         end
 
-        puts table2.render(:ascii, padding: 1)
+        puts table2.render(:ascii)
       else
         table << [key.to_s, value.to_s]
       end
     end
 
     puts "Overig:"
-    puts table.render(:ascii, padding: 1)
+    puts table.render(:ascii)
   end
 
   desc 'check', 'Check if everything is configured'

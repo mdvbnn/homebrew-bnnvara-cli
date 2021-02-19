@@ -7,4 +7,6 @@ class ConfigKeyStore
 
   DOCKER_ACTIVE = 'docker.active'
 
+  GIT_CLONE_METHOD = 'git.clone_method'
+
 end

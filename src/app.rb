@@ -22,4 +22,14 @@ class App < Thor
   desc 'project', 'Project commands'
   subcommand "project", Project
 
+  # desc 'git', 'Git commands'
+  # subcommand "git", Git
+
+  desc 'list', 'list all commands'
+  def list
+    invoke "config:help"
+    invoke "docker:help"
+    invoke "project:help"
+  end
+
 end
