@@ -4,28 +4,26 @@
 
 ## Commands
 
-### bnnvara config
-#### Setup
 ```shell
-bnnvara config setup
-```
-Setup command for this tool.
+Commands:
+  bnnvara config check           # Check if everything is configured
+  bnnvara config help [COMMAND]  # Describe subcommands or one specific subcommand
+  bnnvara config read            # list the config
+  bnnvara config setup           # Setup bnnvara cli config
 
-Wil ask you where your main project folder starting from your home directory.
+Commands:
+  bnnvara docker down            # Stop active docker-compose and remove containers
+  bnnvara docker exec            # Execute command in a docker container
+  bnnvara docker help [COMMAND]  # Describe subcommands or one specific subcommand
+  bnnvara docker stop            # Stop active docker-compose
+  bnnvara docker up              # Start docker-compose
 
-Only run once unless you append the `--force` flag like:
-```shell
-bnnvara config setup --force
-```
+Commands:
+  bnnvara project help [COMMAND]  # Describe subcommands or one specific subcommand
+  bnnvara project mark            # mark project folder active to run commands
+  bnnvara project unmark          # Unmark active project folder
 
-#### Read
-```shell
-bnnvara config read
+Commands:
+  bnnvara git clone           # Setup new repo
+  bnnvara git help [COMMAND]  # Describe subcommands or one specific subcommand
 ```
-List all setting stored in config file
-
-#### Check
-```shell
-bnnvara config check
-```
-Check if setup is been called and checks if it can find the external cli executables.
