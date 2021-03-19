@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+require_relative '../bootstrap/bootstrap'
+require_relative '../src/config'
+
+Config.start(ARGV)

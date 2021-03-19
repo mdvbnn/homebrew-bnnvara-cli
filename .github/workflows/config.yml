@@ -24,7 +24,7 @@ jobs:
         run: wget https://github.com/pmq20/ruby-packer/releases/download/darwin-x64/rubyc && chmod +x ./rubyc
 
       - name: Compile Config class
-        run: ./rubyc -o bnn_config $GITHUB_WORKSPACE/src/config.rb
+        run: ./rubyc -o bnn_config $GITHUB_WORKSPACE/bin/bnnvara_config
 
       - name: Upload a Build Artifact As-Is
         uses: kittaakos/upload-artifact-as-is@v0
