@@ -3,7 +3,7 @@ class Bnnvara < Formula
   homepage "https://bitbucket.org/mdvbnn/homebrew-bnnvara-cli"
   version "0.1"
 
-  sha256 "e3ed8af05bae3440fb198a4692ddb098c1ec341ef975f9e51ce897c7e039d849"
+  sha256 "c9e5bf62bce5503aaf4fc253211f8dbfaa4b74ff04b3ffc3d75b790bb15ea1e6"
   url "https://github.com/mdvbnn/homebrew-bnnvara-cli/blob/master/cli.zip", :using => :curl
 
   depends_on "wget" => [:build]
