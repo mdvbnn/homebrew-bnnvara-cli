@@ -11,8 +11,8 @@ class Bnnvara < Formula
 
   bottle do
     root_url "https://bnnvara-bottle.m-dv.nl"
-    sha256 "1d551151c7a993814c04e70dd4862eaa0d0cbc3287f010ecb0bffb05a26c5a5d" => :big_sur
-    sha256 "40c711e11da2d5b829435e87de5339d6f5f23a50a50ce712d5a232d36ac5fd57" => :catalina
+    sha256 "01011d0aee92562028a744ce2ded9c32a009096a24b38a7e75f726c76add761e" => :big_sur
+    sha256 "76c8ade7bee9a2cec6129b73e1503670e5823204d1d360f862c3a4cb272f326d" => :catalina
   end
 
   def install
