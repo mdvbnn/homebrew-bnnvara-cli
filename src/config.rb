@@ -4,6 +4,7 @@ class Config < Thor
 
   def initialize(args = nil, options = nil, config = nil)
     super
+    $datastore = DataStore.new(self.options)
 
     @config = $datastore.config
   end

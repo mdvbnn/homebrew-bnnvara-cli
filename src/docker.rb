@@ -24,7 +24,7 @@ class Docker < Thor
 
     result = prompt.yes?("Are you sure? This wil remove the docker containers. ")
 
-    unless result
+    if result
       unless @config.get($datastore.key_store::DOCKER_ACTIVE).nil?
         dir = @config.get($datastore.key_store::DOCKER_ACTIVE)
         system("cd #{dir} && docker-compose down")

@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  catalina:
+    # 10.15 catalina
+    runs-on: macos-10.15
+    if: "contains(github.event.head_commit.message, '[config]')"
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      - name: Set up Homebrew
+        id: set-up-homebrew
+        uses: Homebrew/actions/setup-homebrew@master
+
+      - name: Install WGET
+        run: brew install wget squashfs
+
+      - name: Download rubyc compiler
+        run: wget https://github.com/pmq20/ruby-packer/releases/download/darwin-x64/rubyc && chmod +x ./rubyc
+
+      - name: Compile Config class
+        run: ./rubyc -o bnn_config $GITHUB_WORKSPACE/src/config.rb
+
+      - name: Upload a Build Artifact As-Is
+        uses: kittaakos/upload-artifact-as-is@v0
+        with:
+          path: |
+            bnn_config
