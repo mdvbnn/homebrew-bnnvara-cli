@@ -11,8 +11,9 @@ class Docker < Thor
   def stop
     dir = @config.get($datastore.key_store::DOCKER_ACTIVE)
 
-    if dir.nil?
+    unless dir.nil?
       system("cd #{dir} && docker-compose stop")
+      @config.del $datastore.key_store::DOCKER_ACTIVE
     end
 
   end
@@ -61,13 +62,17 @@ class Docker < Thor
   desc 'exec', 'Execute command in a docker container'
   def exec(docker, command)
     unless @config.get($datastore.key_store::DOCKER_ACTIVE).nil?
-      system("docker-composer exec #{docker} #{command}")
+      dir = @config.get($datastore.key_store::DOCKER_ACTIVE)
+      system("cd #{dir} && docker-compose exec #{docker} #{command}")
     end
   end
 
   private
   def up_command(project_dir)
     if File.exist? File.join(project_dir, 'docker-compose.yaml')
+      system("cd #{project_dir} && docker-compose up -d")
+      @config.set($datastore.key_store::DOCKER_ACTIVE, project_dir)
+    elsif File.exist? File.join(project_dir, 'docker-compose.yml')
       system("cd #{project_dir} && docker-compose up -d")
       @config.set($datastore.key_store::DOCKER_ACTIVE, project_dir)
     else
