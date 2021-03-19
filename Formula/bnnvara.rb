@@ -4,7 +4,7 @@ class Bnnvara < Formula
   version "0.1"
 
   sha256 "c9e5bf62bce5503aaf4fc253211f8dbfaa4b74ff04b3ffc3d75b790bb15ea1e6"
-  url "https://github.com/mdvbnn/homebrew-bnnvara-cli/blob/master/cli.zip", :using => :curl
+  url "https://bnnvara-bottle.m-dv.nl/cli.zip", :using => :wget
 
   depends_on "wget" => [:build]
   depends_on 'squashfs' => [:build]
