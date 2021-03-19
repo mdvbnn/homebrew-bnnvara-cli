@@ -1,6 +1,4 @@
 require 'yaml'
-require 'pry'
-
 
 class Git < Thor
 
